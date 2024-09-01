@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dialog</title>
+  <link rel="stylesheet" href="../dist/bundle.css">
+  <link rel="stylesheet" href="../assets/css/components/cards.css">
+  <link rel="stylesheet" href="../assets/css/base/base.css">
+</head>
+
+<body>
+  <div class="container mt-4" dir="rtl">
+      <div class="card">
+        <div class="card-header">
+          <pre class="code">
+            <code id="code_2"></code>
+          </pre>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li>التحقق من وجود حزمه</li>
+            <pre class="code">
+               <code>npm list package-name</code>
+              
+            </pre>
+            <li>عرض الحزم التي تحتاج الى تحديث</li>
+            
+            <pre class="pre-code">
+              <code>npm outdated</code>
+            </pre>
+            
+            <li>عرض جميع كل حزمه وكل اصدار</li>
+            
+            <pre class="pre-code">
+              <code>npm ls</code>
+            </pre>
+            
+            <li class="card-title">
+              <code>getFieldProps</code>
+            </li>
+            
+            <pre class="pre-code mt-2">
+              <code>
+        &lt;input
+          type="text"
+          id="name"
+          name="name"
+          {...formik.getFieldProps("name")}
+       / &gt;
+       <hr>
+       {...formik.getFieldProps("name")}
+                 =
+       onChange={formik.handleChange}
+       onBlur={formik.handleBlur}
+       value={formik.values.name}
+              </code>
+            </pre>
+          </ul>
+        </div>
+      </div>
+</div>
+
+
+<script src= "../dist/bundle.js">
+  
+</script>
+
+</body>
+
+</html>

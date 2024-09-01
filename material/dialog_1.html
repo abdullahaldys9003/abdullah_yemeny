@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>dialog</title>
+  <link rel="stylesheet" href="../dist/bundle.css">
+  <link rel="stylesheet" href="../assets/css/components/cards.css">
+  <link rel="stylesheet" href="../assets/css/base/base.css">
+</head>
+<body>
+  <div class="container mt-3" dir="rtl">
+    <div class="card">
+      <div class="card-header">
+        <pre class="code-base">
+          <code id="code_1">
+          </code>
+        </pre>
+      </div>
+      <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <li class="card-title">Dialog </li>
+              <p class="card-text m-2">
+                هذا هو المكون الذي سيغلف المكون بالكامل ويحتوي على الخصائص المهمه ك خاصبه <code>open </code> التي تفتح النموذج إذا كان <code>true</code> وخاصيه <code>onClose : </code> تُنفذ عند النقر خارج النموذج 
+              </p>
+            </div>
+            <div class="col">
+              <pre class="pre-code">
+                <code>
+&lt;Dialog open={open}
+onClose={handleClose} 
+maxWidth="sm"
+fullWidth&gt; <code>
+                </code>
+              </pre>
+            </div>
+          </div>
+          
+           <div class="row">
+            <div class="col-12">
+              <li class="card-title"> DialogContent</li>
+              <p class="card-text m-2">
+                يتم كتابه محتوى مربع الحوار فيه بعد العنوان يمكن اضافه خاصبه <code>dividers = {true}</code> : لاضافه حدود في <code>top</code> المحتوى وفي اسفل المحتوى لتمييز العنوان والfooter 
+              </p>
+            </div>
+            <div class="col">
+              <pre class="pre-code">
+                <code>
+ &lt;DialogContent 
+ sx={{ padding: 24 }}>                 
+                </code>
+              </pre>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <li class="card-title"> Dilo</li>
+              <p class="card-text m-2">
+                يمكن اضافه نص في المحتوى بواسطه هذا المكون 
+              </p>
+            </div>
+            <div class="col">
+              <pre class="pre-code">
+                <code>
+  &lt;DialogContentText>              
+                </code>
+              </pre>
+            </div>
+          </div>
+         
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById("code_1").textContent = `
+import React, { useState } from 'react';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+  TextField,
+  Grid,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel
+} from '@mui/material';
+
+const ProductFormDialog = ({ open, handleClose }) => {
+  const [productDetails, setProductDetails] = useState({
+    name: '',
+    price: '',
+    discount: '',
+    advertisement: '',
+    description: '',
+    total: '',
+    quantity: '',
+    category: '',
+  });
+
+  const categories = ['Electronics', 'Books', 'Clothing', 'Home Appliances'];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProductDetails({ ...productDetails, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    console.log('Product Details:', productDetails);
+    handleClose();
+  };
+
+  return (
+    <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+      <DialogTitle>Add New Product</DialogTitle>
+      
+      <DialogContent sx={{ padding: 24 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6} sx={{ marginTop: '16px'}}>
+            <TextField
+              label="Product Name"
+              name="name"
+              value={productDetails.name}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Price"
+              name="price"
+              type="number"
+              value={productDetails.price}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Discount"
+              name="discount"
+              type="number"
+              value={productDetails.discount}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Advertisement"
+              name="advertisement"
+              value={productDetails.advertisement}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Description"
+              name="description"
+              value={productDetails.description}
+              onChange={handleChange}
+              multiline
+              rows={4}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Total"
+              name="total"
+              type="number"
+              value={productDetails.total}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Quantity"
+              name="quantity"
+              type="number"
+              value={productDetails.quantity}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <InputLabel>Category</InputLabel>
+              <Select
+                name="category"
+                value={productDetails.category}
+                onChange={handleChange}
+              >
+                {categories.map((category) => (
+                  <MenuItem key={category} value={category}>
+                    {category}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="secondary">
+          Cancel
+        </Button>
+        <Button onClick={handleSubmit} color="primary" variant="contained">
+          Add Product
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+const App = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <Button variant="outlined" onClick={handleOpen}>
+        Open Product Form
+      </Button>
+      <ProductFormDialog open={open} handleClose={handleClose} />
+    </div>
+  );
+};
+
+export default App;
+ 
+    `;
+  </script>
+ <script src="../dist/bundle.js">
+ 
+ </script>
+</body>
+
+</html>
